@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { createReducer } from 'reduxsauce';
 import { NavigationActions } from 'react-navigation';
-import api from '../../../services/api';
+import api from '../../../Services/api';
 
 const LOADING_QUESTIONS = 'loadingQuestions';
 const SET_QUESTIONS = 'setQuestions';
