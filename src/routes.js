@@ -11,12 +11,13 @@ const Routes = createAppContainer(
       Quizz,
       Results,
     },
-    { initialRouteName: 'Home' },
     {
       defaultNavigationOptions: {
         header: null,
       },
-    }
+    },
+
+    { initialRouteName: 'Home' }
   )
 );
 

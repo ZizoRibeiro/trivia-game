@@ -1,8 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { createReducer } from 'reduxsauce';
-
-import axios from 'axios';
-import api from '../../../Services/api';
+import { NavigationActions } from 'react-navigation';
+import api from '../../../services/api';
 
 const LOADING_QUESTIONS = 'loadingQuestions';
 const SET_QUESTIONS = 'setQuestions';
@@ -12,14 +11,9 @@ export const actions = {
   fetchQuestions() {
     return async dispatch => {
       dispatch({ type: LOADING_QUESTIONS, payload: true });
-      try {
-        const response = await axios.get(
-          'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean'
-        );
-        dispatch({ type: SET_QUESTIONS, payload: response.data.results });
-      } catch (err) {
-        console.log(err);
-      }
+
+      const response = await api.get(`/api.php?amount=10&difficulty=hard&type=boolean`);
+      dispatch({ type: SET_QUESTIONS, payload: response.data.results });
     };
   },
   storeAnswer(question, answer) {
@@ -31,13 +25,18 @@ export const actions = {
 const INITIAL_STATE = Immutable({
   questions: [],
   answers: [],
-  currentQuestion: [],
   loading: true,
+  correctAnswerCount: 0,
 });
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [LOADING_QUESTIONS]: (state, { payload }) => state.merge({ loading: true }),
+  [LOADING_QUESTIONS]: (state, { payload }) => state.merge(INITIAL_STATE),
   [SET_QUESTIONS]: (state, { payload }) => state.merge({ loading: false, questions: payload }),
   [SET_ANSWER]: (state, { payload }) =>
-    state.merge({ answers: [...state.getIn('answers'), payload] }),
+    state.merge({
+      answers: [...state.answers, payload],
+      correctAnswerCount: payload.correctAnswer
+        ? state.correctAnswerCount + 1
+        : state.correctAnswerCount,
+    }),
 });

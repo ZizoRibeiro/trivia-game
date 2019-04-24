@@ -1,22 +1,29 @@
 import React from 'react';
+import { AllHtmlEntities } from 'html-entities';
 
-import { Container, Title, Question, ButtonTrue, ButtonFalse, QuestionNumber } from './styles';
+import { QuestionNumber } from './styles';
 
-import { ButtonWrapper, ButtonText } from '../Home/styles';
+import { Container } from '../../shared/Container';
+import { Title } from '../../shared/Title';
+import { Question } from '../../shared/Question';
 
-const Quizz = ({ question, navigation }) => (
+import { ButtonWrapper, ButtonText } from '../../shared/Button';
+
+const htmlEntities = new AllHtmlEntities();
+
+const Quizz = ({ question, navigation, answersCount, onAnswer }) => (
   <Container>
-    <Title>{question.category}</Title>
+    <Title>{htmlEntities.decode(question.category)}</Title>
 
-    <Question>{question.question}</Question>
+    <Question>{htmlEntities.decode(question.question)}</Question>
 
-    <ButtonWrapper onPress={() => navigation.navigate('Results')}>
-      <ButtonText>TRUE</ButtonText>
+    <ButtonWrapper testID="trueAnswer" qbutton onPress={() => onAnswer(question, 'true')}>
+      <ButtonText>YES! It's True.</ButtonText>
     </ButtonWrapper>
-    <ButtonWrapper onPress={() => navigation.navigate('Results')}>
-      <ButtonText>FALSE</ButtonText>
+    <ButtonWrapper testID="falseAnswer" qbutton onPress={() => onAnswer(question, 'false')}>
+      <ButtonText falsyBtt>NO...It's False.</ButtonText>
     </ButtonWrapper>
-    <QuestionNumber>01 of 10</QuestionNumber>
+    <QuestionNumber>{answersCount} of 10</QuestionNumber>
   </Container>
 );
 

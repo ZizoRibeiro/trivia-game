@@ -1,38 +1,22 @@
 import React from 'react';
 
-import {
-  Container,
-  Title,
-  TotalScore,
-  ResultContainer,
-  QuestionCorrect,
-  IconCorrect,
-  Question,
-  QuestionFalse,
-  IconFalse,
-  QuestionResults,
-} from './styles';
+import { connect } from 'react-redux';
+import { bindActionCreators, compose } from 'redux';
+import Results from './Results';
 
-import { ButtonWrapper, ButtonText } from '../Home/styles';
+function Container({ answers, navigation, correctAnswerCount }) {
+  return (
+    <Results
+      answers={answers}
+      correctAnswerCount={correctAnswerCount}
+      onPlayAgain={() => navigation.navigate('Home')}
+    />
+  );
+}
 
-const Results = props => (
-  <Container>
-    <Title>Your Score</Title>
-    <TotalScore>6 / 15</TotalScore>
-    <ResultContainer>
-      <QuestionResults>
-        <IconCorrect>+</IconCorrect>
-        <Question> Stewart Copeland was the The police Drummer?</Question>
-      </QuestionResults>
-      <QuestionResults>
-        <IconFalse>-</IconFalse>
-        <Question> Stewart Copeland was the The police Drummer?</Question>
-      </QuestionResults>
-    </ResultContainer>
-    <ButtonWrapper onPress={() => props.navigation.navigate('Home')}>
-      <ButtonText>PLAY AGAIN?</ButtonText>
-    </ButtonWrapper>
-  </Container>
-);
+const mapStateToProps = state => ({
+  answers: state.answers,
+  correctAnswerCount: state.correctAnswerCount,
+});
 
-export default Results;
+export default connect(mapStateToProps)(Container);

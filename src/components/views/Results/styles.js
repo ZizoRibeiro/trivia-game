@@ -1,58 +1,60 @@
 import styled from 'styled-components/native';
-
-export const Container = styled.View`
-  flex: 1;
-  background-color: #255fa3;
-  align-items: center;
-`;
-
-export const Title = styled.Text`
-  font-size: 25px;
-  font-weight: bold;
-  color: #fff;
-  padding-top: 200px;
-`;
+import { colors } from '../../../styles';
 
 export const TotalScore = styled.Text`
   font-size: 25px;
   font-weight: bold;
-  color: #fff;
+  color: ${colors.white};
   padding-top: 20px;
 `;
 
-export const ResultContainer = styled.ScrollView`
-  padding-top: 20px;
+export const ResultContainer = styled.ScrollView.attrs({
+  bounces: false,
+})`
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: ${colors.darkBlue};
 `;
 
+export const ResultQuestion = styled.Text`
+  font-size: 18px;
+  color: ${colors.light};
+  font-weight: normal;
+  text-align: left;
+  padding-left: 40px;
+`;
 export const QuestionCorrect = styled.View`
   padding-top: 20px;
-`;
-
-export const IconCorrect = styled.Text`
-  font-size: 20px;
-  color: #0dffc9;
-`;
-
-export const Question = styled.Text`
-  font-size: 16px;
-  color: #fff;
-  font-weight: bold;
 `;
 
 export const QuestionFalse = styled.View``;
 
 export const IconFalse = styled.Text`
-  font-size: 20px;
-  color: #d0021b;
-`;
-
-export const ButtonPlayAgain = styled.Text`
-  font-size: 25px;
-  color: #fff;
+  position: absolute;
+  font-size: 45px;
   font-weight: bold;
-  padding-bottom: 40px;
+  color: ${colors.danger};
+  text-align: center;
+  margin-left: 10px;
+
+  margin-bottom: 10px;
 `;
 
-export const QuestionResults = styled.TouchableOpacity`
-  background-color: #979797;
+export const IconCorrect = styled.Text`
+  position: absolute;
+  font-size: 40px;
+  font-weight: bold;
+  color: ${colors.success};
+  text-align: center;
+  margin-left: 10px;
+
+  margin-bottom: 10px;
+`;
+
+export const QuestionResults = styled.TouchableOpacity.attrs({
+  activeOpacity: 1,
+})`
+  padding-top: 5px;
+  padding-bottom: 15px;
+  opacity: 0.9;
 `;
